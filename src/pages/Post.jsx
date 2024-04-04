@@ -12,9 +12,7 @@ export default function Post() {
     const [imgUrl , setImgUrl] = useState("")
     const userData = useSelector((state) => state.userData);
     const isAuthor = post && userData ? post.userId === userData.$id : false;
-    const dispatch = useDispatch();
-
-    const authenticate = useSelector((state) => state.userData)
+    const [loading , setLoding] = useState(true);
 
     useEffect(() => {
         if (slug) {
@@ -26,10 +24,12 @@ export default function Post() {
                         setImgUrl(res.href);
                         // console.log(imgUrl)
                     });
+                    setLoding(false)
                 }
                 else navigate("/");
             });
         } else navigate("/");
+        
     }, [slug, navigate]);
 
     const deletePost = () => {
@@ -42,7 +42,12 @@ export default function Post() {
     };
     
     // console.log(imgUrl)
-
+if(loading) {
+    return(
+        <div className='text-center text-xl font-bold m-28'>Loading...</div>
+    )
+    
+}
     return post ? (
         <div className="py-8">
             <Container>

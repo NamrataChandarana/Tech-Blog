@@ -31,6 +31,8 @@ function PostForm({post}) {
         });
         if (dbPost) {
             navigate(`/post/${dbPost.$id}`);
+        }else {
+            navigate('/all-posts')
         }
     }else{
         console.log(data.image[0])
